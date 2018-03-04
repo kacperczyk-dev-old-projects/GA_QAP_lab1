@@ -1,0 +1,83 @@
+Result: [9, 3, 10, 4, 2, 12, 11, 6, 5, 7, 1, 8]
+Fitness: 1760
+         2564795 function calls (2564785 primitive calls) in 60.041 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+  1035791   54.312    0.000   56.175    0.000 test.py:54(evaluate_fitness)
+    19800    3.515    0.000   58.788    0.003 test.py:81(roulette)
+  1035791    1.863    0.000    1.863    0.000 test.py:33(inv_dict_from_list)
+     9900    0.077    0.000    0.127    0.000 test.py:102(crossover)
+    19900    0.067    0.000    0.193    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/random.py:283(sample)
+    39800    0.037    0.000    0.063    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/abc.py:178(__instancecheck__)
+    30900    0.031    0.000    0.046    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/random.py:223(_randbelow)
+    39849    0.027    0.000    0.089    0.000 {built-in method builtins.isinstance}
+    59706    0.025    0.000    0.025    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:70(__contains__)
+       99    0.017    0.000   60.024    0.606 test.py:120(survival_of_the_fittest)
+     9900    0.014    0.000    0.030    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/random.py:173(randrange)
+   128924    0.013    0.000    0.013    0.000 {method 'append' of 'list' objects}
+    42363    0.010    0.000    0.010    0.000 {method 'getrandbits' of '_random.Random' objects}
+     9900    0.008    0.000    0.037    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/random.py:217(randint)
+    29967    0.006    0.000    0.006    0.000 {built-in method builtins.len}
+      101    0.005    0.000    0.562    0.006 test.py:65(select_fittest)
+    30900    0.004    0.000    0.004    0.000 {method 'bit_length' of 'int' objects}
+       99    0.004    0.000    0.539    0.005 test.py:74(calculate_s)
+    19817    0.003    0.000    0.003    0.000 {method 'add' of 'set' objects}
+        3    0.001    0.000    0.001    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+       20    0.000    0.000    0.001    0.000 {built-in method builtins.next}
+       25    0.000    0.000    0.001    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:620(__init__)
+      289    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:704(_loose_call)
+        3    0.000    0.000    0.003    0.001 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/npyio.py:1489(genfromtxt)
+       26    0.000    0.000    0.000    0.000 test.py:39(dict_from_list)
+        3    0.000    0.000    0.000    0.000 {built-in method io.open}
+        1    0.000    0.000    0.003    0.003 test.py:95(generate_population)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.print}
+      7/2    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/abc.py:194(__subclasscheck__)
+        3    0.000    0.000    0.000    0.000 {built-in method numpy.core.multiarray.array}
+  210/205    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+      100    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/core/numerictypes.py:631(issubclass_)
+       28    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:232(_delimited_splitter)
+       50    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/core/numerictypes.py:699(issubdtype)
+        3    0.000    0.000    0.001    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/npyio.py:1888(<listcomp>)
+      100    0.000    0.000    0.000    0.000 {built-in method math.log}
+        4    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/codecs.py:318(decode)
+       28    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:262(__call__)
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/npyio.py:2034(<listcomp>)
+      100    0.000    0.000    0.000    0.000 {built-in method math.ceil}
+        3    0.000    0.000    0.001    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2456(prod)
+       56    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:874(easy_dtype)
+       12    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:58(__iter__)
+        3    0.000    0.000    0.001    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:129(flatten_dtype)
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:322(__init__)
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:46(_is_string_like)
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/npyio.py:1786(<listcomp>)
+       28    0.000    0.000    0.000    0.000 {method 'strip' of 'str' objects}
+        4    0.000    0.000    0.000    0.000 {built-in method _codecs.utf_8_decode}
+        7    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:20(__enter__)
+        3    0.000    0.000    0.000    0.000 {built-in method _locale.nl_langinfo}
+        7    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:36(__init__)
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_bootlocale.py:23(getpreferredencoding)
+       31    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:20(_decode_line)
+        3    0.000    0.000    0.000    0.000 {method 'update' of 'dict' objects}
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/codecs.py:308(__init__)
+        7    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:26(__exit__)
+        3    0.000    0.000    0.001    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/core/_methods.py:34(_prod)
+       25    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:570(_dtypeortype)
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        7    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:52(_commit_removals)
+        7    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:81(add)
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/compat/py3k.py:94(is_pathlib_path)
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/lib/python3.6/site-packages/numpy/lib/_iotools.py:207(__init__)
+        3    0.000    0.000    0.000    0.000 {method 'squeeze' of 'numpy.ndarray' objects}
+        3    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        7    0.000    0.000    0.000    0.000 {method 'remove' of 'set' objects}
+        3    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/codecs.py:259(__init__)
+        7    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_weakrefset.py:16(__init__)
+        3    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
+        7    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        6    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_collections_abc.py:392(__subclasshook__)
+        6    0.000    0.000    0.000    0.000 {method '__subclasses__' of 'type' objects}
+        1    0.000    0.000    0.000    0.000 /Users/dawid/virtualenvs/AI_L1/bin/../lib/python3.6/_collections_abc.py:302(__subclasshook__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}

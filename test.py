@@ -10,9 +10,9 @@ prof.enable()
 f = "had12.dat"
 
 #settings
-pop_size=100 
+pop_size=100
 gen=100
-px=0,7
+px=0.7
 pm=0.01
 tour=5
 n = int(numpy.genfromtxt(open(f, "r"), dtype="int", max_rows=1))
@@ -91,6 +91,21 @@ def roulette(pop, s):
       c = c + 1
   return pop[c]
 
+#Tournament
+def tournament(pop):
+  tourn = sample(range(pop_size), k=tour)
+  fit = dict()
+  fit_i = 0
+  for n in tourn:
+    fit[n] = evaluate_fitness(pop[n])
+  sorted_x = sorted(fit.items())
+  llll = []
+  for k, v in sorted_x:
+    llll.append(k)
+  fit_i = llll[0]
+  return pop[fit_i]
+
+
 #first population
 def generate_population(size):
   population = []
@@ -101,6 +116,7 @@ def generate_population(size):
 #crossover
 def crossover(chrom1, chrom2):
   x_point = randint(1, n)
+  mut = random()
   child = []
   for i in range(0, x_point):
     child.append(chrom1[i])
@@ -114,6 +130,14 @@ def crossover(chrom1, chrom2):
     else:
       child.append(v)
       condi = False
+
+  if(mut <= pm):
+    m1 = randint(0, 11)
+    m2 = randint(0, 11)
+    m11 = child[m2]
+    m12 = child[m1]
+    child[m1] = m11
+    child[m2] = m12
   return child
 
 #GA
@@ -122,8 +146,8 @@ def survival_of_the_fittest(pop, fittest, counter):
   new_pop = []
   new_pop.append(fittest)
   while(len(new_pop)<= 100):
-    c1 = roulette(pop, s)
-    c2 = roulette(pop, s)
+    c1 = tournament(pop)
+    c2 = tournament(pop)
     offspring = crossover(c1, c2)
     new_pop.append(offspring)
   fittest = select_fittest(new_pop)
