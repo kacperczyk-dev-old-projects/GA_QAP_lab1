@@ -3,11 +3,16 @@ import numpy
 from random import *
 from cProfile import Profile
 import pstats
+import csv
 
-prof = Profile()
-prof.enable()
+#profiler to see how the code performs
+#prof = Profile()
+#prof.enable()
+
 #file
-f = "had12.dat"
+test_run_no = 7
+f = "./data/had12.dat"
+out_file = "./out/had12_roulette_"+str(test_run_no)+".csv"
 
 #settings
 pop_size=100
@@ -15,19 +20,12 @@ gen=100
 px=0.7
 pm=0.01
 tour=5
+elitism = True
 n = int(numpy.genfromtxt(open(f, "r"), dtype="int", max_rows=1))
 
 #read from file
-ddd = numpy.genfromtxt(open(f, "r"), skip_header=2, dtype="int", max_rows=12)
-fff = numpy.genfromtxt(open(f, "r"), skip_header=15, dtype="int", max_rows=12)
-
-#best solution
-sol = [3, 10, 11, 2, 12, 5, 6, 7, 8, 1, 4, 9]
-
-#check
-#print(n)
-#print(dist)
-#print(flow)
+ddd = numpy.genfromtxt(open(f, "r"), skip_header=2, dtype="int", max_rows=n)
+fff = numpy.genfromtxt(open(f, "r"), skip_header=n+3, dtype="int", max_rows=n)
 
 #helpers
 def inv_dict_from_list(list):
@@ -70,7 +68,17 @@ def select_fittest(pop):
       chrom = (i, ff)
   return pop[chrom[0]]
 
-#Calculate S (sum all fitnesses for current population)
+#select worst for stats
+def select_least(pop):
+  chrom = (0, evaluate_fitness(pop[0]))
+  for i in range(0, pop_size):
+    ff = evaluate_fitness(pop[i])
+    if(ff > chrom[1]):
+      chrom = (i, ff)
+  return pop[chrom[0]]
+
+
+#Calculate S (sum all fitnesses for current population) for roulette
 def calculate_s(pop):
   s = 0
   for chrom in pop:
@@ -115,37 +123,44 @@ def generate_population(size):
 
 #crossover
 def crossover(chrom1, chrom2):
-  x_point = randint(1, n)
-  mut = random()
-  child = []
-  for i in range(0, x_point):
-    child.append(chrom1[i])
-  condi = False
-  for v in chrom2:
-    for vv in child:
-      if(v == vv):
-        condi = True
-    if(condi):
-      condi = False
-    else:
-      child.append(v)
-      condi = False
+  if(random() <= px):
+    x_point = randint(1, n)
+    child = []
+    for i in range(0, x_point):
+      child.append(chrom1[i])
+    condi = False
+    for v in chrom2:
+      for vv in child:
+        if(v == vv):
+          condi = True
+      if(condi):
+        condi = False
+      else:
+        child.append(v)
+        condi = False  
+    return mutate(child)
+  else: 
+    return chrom1
 
+def mutate(child):
+  mut = random()
   if(mut <= pm):
-    m1 = randint(0, 11)
-    m2 = randint(0, 11)
-    m11 = child[m2]
-    m12 = child[m1]
-    child[m1] = m11
-    child[m2] = m12
+      m1 = randint(0, n-1)
+      m2 = randint(0, n-1)
+      m11 = child[m2]
+      m12 = child[m1]
+      child[m1] = m11
+      child[m2] = m12
   return child
 
-#GA
-def survival_of_the_fittest(pop, fittest, counter):
-  s = calculate_s(pop)
+
+#With Tournament
+def survival_of_the_fittest_t(pop, fittest, counter):
   new_pop = []
-  new_pop.append(fittest)
-  while(len(new_pop)<= 100):
+  if(elitism == True):
+    new_pop.append(fittest)
+    new_pop.append(mutate(fittest)) #mutates or doesn't
+  while(len(new_pop)<= pop_size):
     c1 = tournament(pop)
     c2 = tournament(pop)
     offspring = crossover(c1, c2)
@@ -154,28 +169,75 @@ def survival_of_the_fittest(pop, fittest, counter):
   c = counter + 1
   return (new_pop, fittest, c)
 
-#sxsx = numpy.array([8, 10, 12, 5, 1, 6, 11, 2, 3, 4, 7, 9])
-#print(numpy.where(sxsx == 12)[0][0])
-#print(sxsx)
+#With Roulette
+def survival_of_the_fittest_r(pop, fittest, counter):
+  s = calculate_s(pop) #only for roulette
+  new_pop = []
+  if(elitism == True):
+    new_pop.append(fittest)
+    new_pop.append(mutate(fittest)) #mutates or doesn't
+  while(len(new_pop)<= pop_size):
+    c1 = roulette(pop, s)
+    c2 = roulette(pop, s)
+    offspring = crossover(c1, c2)
+    new_pop.append(offspring)
+  fittest = select_fittest(new_pop)
+  c = counter + 1
+  return (new_pop, fittest, c)
 
+#start
+#prepare csv
+writer = csv.writer(open(out_file, 'w'), delimiter=',', quoting = csv.QUOTE_NONE)
 
+writer.writerow(["Plik: " + f])
 
-#Start
-population = generate_population(pop_size)
-fittest = select_fittest(population)
+#Run program
+while (tour <= 5):
+  writer.writerow([])
+  writer.writerow(["Parameters:"])
+  writer.writerow(["pop_size="+ str(pop_size), "gen="+ str(gen), "Px="+ str(px), "Pm"+str(pm), "tour=" + str(tour), "elitism=True"])
+  writer.writerow([])
+  writer.writerow(["<nr_pokolenia", " najlepsza_ocena", " srednia_ocen", " najgorsza_ocena>"])
+  runs = 1
+  counter = 1
+  best_results = []
+  while(runs <= 10):
+    population = generate_population(pop_size)
+    fittest = select_fittest(population)
+    writer.writerow([])
+    writer.writerow([str(runs) + " uruchomienie"])
+    print(str(runs) + " uruchomienie")
+    while(counter <= gen):
+      meany = calculate_s(population)/pop_size
+      ssss = "<" + str(counter), str(evaluate_fitness(fittest)), str(int(meany)), str(evaluate_fitness(select_least(population))) + ">"
+      print(ssss)
+      writer.writerow(ssss)
+      p = survival_of_the_fittest_r(population, fittest, counter)
+      population = p[0]
+      fittest = p[1]
+      
+      counter = counter + 1
+    counter = 1
+    runs = runs + 1
+    res = select_fittest(population)
+    res_res = evaluate_fitness(res)
+    besty = "Best: " + "[" + " ".join(map(str, res)) + "]", str(res_res)
+    best_results.append(besty)
+    writer.writerow(besty)
+    print('Result:', res)
+    print('Fitness:', res_res)
 
-counter = 1
-while(counter < 100):
-  p = survival_of_the_fittest(population, fittest, counter)
-  population = p[0]
-  fittest = p[1]
-  counter = counter + 1
+  writer.writerow([])
+  writer.writerow(["Najlepsze wyniki"])
+  for ro in best_results:
+    print(ro)
+    writer.writerow(ro)
 
-res = select_fittest(population)
-print('Result:', res)
-print('Fitness:', evaluate_fitness(res))
+  runs = 1
+  counter = 1
+  best_results = []
+  tour = tour + 5
 
-
-prof.disable()
-ps = pstats.Stats(prof).sort_stats('tottime')
-ps.print_stats()
+#prof.disable()
+#ps = pstats.Stats(prof).sort_stats('tottime')
+#ps.print_stats()
